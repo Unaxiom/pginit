@@ -17,8 +17,14 @@ var dbErr error
 var log *ulogger.Logger
 
 // Init needs to be called to set up the logger object
-func Init(logger *ulogger.Logger) {
-	log = logger
+func Init(appName string, orgName string, production bool) {
+	log = ulogger.New()
+	log.ApplicationName = appName + " pginit"
+	log.OrganizationName = orgName
+	log.RemoteAvailable = production
+	if production {
+		ulogger.RemoteURL = "https://logs.unaxiom.com/newlog"
+	}
 }
 
 // CreateDB creates the database, if it doesn't exist
