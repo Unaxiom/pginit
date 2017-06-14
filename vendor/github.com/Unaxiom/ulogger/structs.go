@@ -44,6 +44,7 @@ type Logger struct {
 	OrganizationName string `json:"organization_name"`
 	ApplicationName  string `json:"application_name"`
 	RemoteAvailable  bool   // Stores if the struct needs to be pushed to the remote URL
+	LineNumber       bool   // Stores if the file, function, and the line number need to be printed with every log
 
 	LogLevel string // Stores the log level; values are debug, info, warning, error and fatal
 	// debug --> 1
@@ -85,6 +86,13 @@ type Logger struct {
 type DisplayField struct {
 	Name  string
 	Value interface{}
+}
+
+// runtimeParams stores the file name, the function name, and the line number of the caller function
+type runtimeParams struct {
+	file     string
+	function string
+	line     int64
 }
 
 var debugMutex sync.Mutex

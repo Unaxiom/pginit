@@ -7,6 +7,9 @@ type LogMessage struct {
 	MessageContent   string `json:"message_content"`
 	OrganizationName string `json:"organization_name"`
 	ApplicationName  string `json:"application_name"`
+	File             string `json:"file"`
+	Function         string `json:"function"`
+	Line             int64  `json:"line"`
 }
 
 // PostMessage is the struct that will be used to send a message to the remote URL

@@ -12,6 +12,7 @@ func main() {
     log.RemoteAvailable = true // Defines whether logs need to the be streamed to the remote URL
     log.ApplicationName = "Temp Debugger" // Sets the applicaton name
     log.OrganizationName = "New org" // Sets the organization name that this build is licensed to
+    log.LineNumber = false // Bool value sets if line number, function name, and the file name need to be printed to the console. Default is true
     ulogger.RemoteURL = "https://example.com" // Sets the remote URL where the log message needs to be sent via a POST request. If this is not set, and if log.RemoteAvailability is true, then the default URL is ""
 }
 ```
@@ -75,6 +76,9 @@ Each of these values could be assigned an color from the package [`github.com/fa
 
 # Disabling remote logging
 Remote logging can be disabled by setting `log.RemoteAvailable` to `false`.
+
+# Print function name, line number, and the file name
+This can be done by setting `log.LineNumber = true`. The default instance when creating a new logger has it set to `true`. If these values aren't required, they can be hidden by setting this value to `false`.
 
 # Send log messages to custom URL
 If `log.RemoteAvailable` is set to `true`, then log messages are sent via a `POST` request to the URL. In case the URL needs to be changed, then it can be done so by updating `ulogger.RemoteURL` to the appropriate URL string. These messages would be sent via goroutines, so the execution will not be blocked.

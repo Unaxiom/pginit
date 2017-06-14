@@ -11,12 +11,12 @@ import (
 	"github.com/fatih/color"
 )
 
-type prefixerSignature func(log *Logger) (*bytes.Buffer, logMessage)
+type prefixerSignature func(log *Logger, rtParams runtimeParams) (*bytes.Buffer, logMessage)
 
 // write is applicable for all simple logs
-func write(prefixFunc prefixerSignature, log *Logger, clr *color.Color, ch chan int, args ...interface{}) {
+func write(prefixFunc prefixerSignature, log *Logger, clr *color.Color, rtParams runtimeParams, ch chan int, args ...interface{}) {
 	// Create the log that needs to be displayed on stdout
-	buf, logStruct := prefixFunc(log)
+	buf, logStruct := prefixFunc(log, rtParams)
 	clr.Fprint(buf, args...)
 	clr.Print(buf.String())
 	go func() {
@@ -48,9 +48,9 @@ func sendLogMessageFromWrite(logStruct logMessage, ch chan int, args ...interfac
 }
 
 // writef is applicable for all logs that need to be formatted
-func writef(prefixFunc prefixerSignature, log *Logger, clr *color.Color, ch chan int, format string, args ...interface{}) {
+func writef(prefixFunc prefixerSignature, log *Logger, clr *color.Color, rtParams runtimeParams, ch chan int, format string, args ...interface{}) {
 	// Create the log that needs to be displayed on stdout
-	buf, logStruct := prefixFunc(log)
+	buf, logStruct := prefixFunc(log, rtParams)
 	clr.Fprintf(buf, format, args...)
 	clr.Print(buf.String())
 	go func() {
@@ -67,9 +67,9 @@ func writef(prefixFunc prefixerSignature, log *Logger, clr *color.Color, ch chan
 }
 
 // writeDump is applicable for all simple logs
-func writeDump(prefixFunc prefixerSignature, log *Logger, clr *color.Color, ch chan int, args ...interface{}) {
+func writeDump(prefixFunc prefixerSignature, log *Logger, clr *color.Color, rtParams runtimeParams, ch chan int, args ...interface{}) {
 	// Create the log that needs to be displayed on stdout
-	buf, _ := prefixFunc(log)
+	buf, _ := prefixFunc(log, rtParams)
 	// clr.Fprint(buf, args...)
 	spew.Fdump(buf, args...)
 	clr.Print(buf.String())
@@ -92,9 +92,9 @@ func sendLogMessageFromWritef(logStruct logMessage, ch chan int, format string, 
 }
 
 // writeln is applicable for all logs ending with 'ln'
-func writeln(prefixFunc prefixerSignature, log *Logger, clr *color.Color, ch chan int, args ...interface{}) {
+func writeln(prefixFunc prefixerSignature, log *Logger, clr *color.Color, rtParams runtimeParams, ch chan int, args ...interface{}) {
 	// Create the log that needs to be displayed on stdout
-	buf, logStruct := prefixFunc(log)
+	buf, logStruct := prefixFunc(log, rtParams)
 	clr.Fprint(buf, args...)
 	clr.Println(buf.String())
 	go func() {

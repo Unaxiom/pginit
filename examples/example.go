@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/Unaxiom/pginit"
+	"git.unaxiom.com/pginit"
 )
 
 func main() {
