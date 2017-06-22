@@ -40,7 +40,7 @@ func CreateDB(dbName string) {
 	command := fmt.Sprintf("CREATE DATABASE %s", dbName)
 	out, err := runSQL(command)
 	if err != nil {
-		log.Fatalln("Couldn't create Database --> ", dbName, ". Error is --> ", err.Error())
+		log.Fatalln("Couldn't create Database --> ", dbName, ". Error is --> ", err.Error(), ". Output is: \n", out)
 	}
 	log.Infoln("Created database --> ", dbName, ". Output of the command is:\n\n", out)
 
@@ -63,7 +63,7 @@ func CreateUser(username string, password string, dbName string) {
 		command := fmt.Sprintf("CREATE USER %s WITH PASSWORD '%s'", username, password)
 		out, err := runSQL(command)
 		if err != nil {
-			log.Fatalln("Couldn't create user --> ", username, ". Error is --> ", err.Error())
+			log.Fatalln("Couldn't create user --> ", username, ". Error is --> ", err.Error(), ". Output is: \n", out)
 		}
 		log.Infoln("Created user --> ", username, ". Output of the command is:\n\n", out)
 	}
@@ -77,7 +77,7 @@ func checkIfUserExists(username string) bool {
 	command := fmt.Sprintf("SELECT EXISTS(SELECT * FROM pg_catalog.pg_user WHERE usename = '%s')", username)
 	out, err := runSQL(command)
 	if err != nil {
-		log.Fatalln("Couldn't check if user --> ", username, " exists. Error is --> ", err.Error())
+		log.Fatalln("Couldn't check if user --> ", username, " exists. Error is --> ", err.Error(), ". Output is: \n", out)
 	}
 	exists := parseExistence(out)
 	return exists
@@ -89,7 +89,7 @@ func checkIfDBExists(dbName string) bool {
 	command := fmt.Sprintf("SELECT EXISTS(SELECT 1 FROM pg_database WHERE datname = '%s')", dbName)
 	out, err := runSQL(command)
 	if err != nil {
-		log.Fatalln("Couldn't check if database --> ", dbName, " exists. Error is --> ", err.Error())
+		log.Fatalln("Couldn't check if database --> ", dbName, " exists. Error is --> ", err.Error(), ". Output is: \n", out)
 	}
 	exists := parseExistence(out)
 	return exists
@@ -101,7 +101,7 @@ func grantAllPermissionsToUser(username string, dbName string) {
 	command := fmt.Sprintf("GRANT ALL ON DATABASE %s TO %s", dbName, username)
 	out, err := runSQL(command)
 	if err != nil {
-		log.Fatalln("Couldn't grant permissions on database --> ", dbName, " to user --> ", username, ". Error is --> ", err.Error())
+		log.Fatalln("Couldn't grant permissions on database --> ", dbName, " to user --> ", username, ". Error is --> ", err.Error(), ". Output is: \n", out)
 	}
 	log.Infoln("Granted all permissions on database --> ", dbName, " to user --> ", username, ". Output of the command is:\n\n", out)
 }
