@@ -2,6 +2,7 @@ package pginit
 
 import (
 	"os/exec"
+	"time"
 
 	"github.com/Unaxiom/ulogger"
 
@@ -25,6 +26,28 @@ func Init(appName string, orgName string, production bool) {
 	if production {
 		ulogger.RemoteURL = "https://logs.unaxiom.com/newlog"
 	}
+	// Check if the DB is live
+
+	dbStatus := CheckIfDBIsLive()
+	if !dbStatus {
+		log.Warningln("Since DB isn't live, will try after a while...")
+		<-time.After(time.Second * time.Duration(2))
+		Init(appName, orgName, production)
+	} else {
+		log.Infoln("PostgreSQL server is live!")
+	}
+}
+
+// CheckIfDBIsLive returns a bool stating if the postgres server is live
+func CheckIfDBIsLive() bool {
+	command := fmt.Sprint("SELECT EXISTS(SELECT 1)")
+	out, err := runSQL(command)
+	if err != nil {
+		log.Warningln("DB isn't live.")
+		return false
+	}
+	exists := parseExistence(out)
+	return exists
 }
 
 // CreateDB creates the database, if it doesn't exist

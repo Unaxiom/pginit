@@ -17,3 +17,8 @@ pginit.CreateDB(dbName)
 ```
 pginit.CreateUser("userA", "passwd", dbName)
 ```
+
+4. Check if PostgreSQL server is live
+```
+dbStatus := CheckIfDBIsLive() // returns a bool mentioning if the DB server is live
+```
