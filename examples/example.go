@@ -8,5 +8,5 @@ func main() {
 	pginit.Init("App", "Org", false)
 	dbName := "play5"
 	pginit.CreateDB(dbName)
-	pginit.CreateUser("userA", "passwd", dbName)
+	pginit.CreateUser("usera", "passwd", dbName)
 }
