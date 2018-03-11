@@ -2,6 +2,7 @@ package pginit
 
 import (
 	"os/exec"
+	"runtime"
 	"time"
 
 	"github.com/Unaxiom/ulogger"
@@ -132,8 +133,18 @@ func grantAllPermissionsToUser(username string, dbName string) {
 // runSQL accepts a psql command, runs it, and returns the combined output along with an error, if any
 func runSQL(command string) (string, error) {
 	commandToRun := fmt.Sprintf(`psql -c "%s"`, command)
-	cmd := exec.Command("sudo", "-u", "postgres", "bash", "-c", commandToRun)
+	var cmd *exec.Cmd
+	if runtime.GOOS == "darwin" {
+		cmd = exec.Command("psql", "-U", "postgres", "-c", fmt.Sprintf(`%s`, command))
+	} else {
+		cmd = exec.Command("sudo", "-u", "postgres", "bash", "-c", commandToRun)
+	}
+
 	output, err := cmd.CombinedOutput()
+	if err != nil {
+		fmt.Println(string(output), err)
+	}
+
 	return string(output), err
 }
 
