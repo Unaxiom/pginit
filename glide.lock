@@ -1,28 +1,26 @@
-hash: 46c66f6d68686dcf0a4cdb8c4124d30cdae33b8ace80b6fb8604e7cbd221b068
-updated: 2017-07-31T17:06:34.467846312+05:30
+hash: dab17fab795de8198ee8967ddfd9b03833d5ae4ec3445dbd8cf505985e417126
+updated: 2020-07-05T17:16:14.517159227+05:30
 imports:
 - name: github.com/davecgh/go-spew
-  version: adab96458c51a58dc1783b3335dcce5461522e75
+  version: d8f796af33cc11cb798c1aaeb27a4ebc5099927d
   subpackages:
   - spew
 - name: github.com/fatih/color
-  version: 62e9147c64a1ed519147b62a56a14e83e2be02c1
+  version: daf2830f2741ebb735b21709a520c5f37d642d85
 - name: github.com/franela/goreq
-  version: b5b0f5eb2d16f20345cce0a544a75163579c0b00
+  version: bcd34c9993f899273c74baaa95e15386cd97b6e7
 - name: github.com/mattn/go-colorable
-  version: 5411d3eea5978e6cdc258b30de592b60df6aba96
-  repo: https://github.com/mattn/go-colorable
+  version: f6c00982823144337e56cdb71c712eaac151d29c
 - name: github.com/mattn/go-isatty
-  version: 57fdcb988a5c543893cc61bce354a6e24ab70022
-  repo: https://github.com/mattn/go-isatty
+  version: cb30d6282491c185f77d9bec5d25de1bb61a06bc
 - name: github.com/Unaxiom/ulogger
-  version: 1f1e77b300083d5a863dbbc0da5e2baca746b885
+  version: 548ab767c87c912a883286e942e32d1827802243
   subpackages:
   - structs
 - name: golang.org/x/sys
-  version: e24f485414aeafb646f6fca458b0bf869c0880a1
-  repo: https://go.googlesource.com/sys
+  version: ddb9806d33aed8dbaac1cd6f1cba58952e87f933
   subpackages:
+  - internal/unsafeheader
   - unix
 - name: gopkg.in/jackc/pgx.v2
   version: 9bd22f689ac9f0f5445fb5dad24569d5cadf1773

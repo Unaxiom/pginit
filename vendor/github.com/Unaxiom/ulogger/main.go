@@ -155,12 +155,15 @@ func postLogMessageToServer(log []logMessage) {
 		Accept:      "application/json",
 		ContentType: "application/json",
 		Body:        message,
+		Timeout:     time.Second * time.Duration(30),
 	}
 	go func() {
-		_, err := logRequest.Do()
+		resp, err := logRequest.Do()
 		if err != nil {
 			fmt.Println("While sending messages, error is ", err.Error())
+			return
 		}
+		resp.Body.Close()
 	}()
 }
 
